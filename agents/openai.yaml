@@ -1,0 +1,6 @@
+interface:
+  display_name: "Duckxy Summarize"
+  short_description: "Summarize the current task and its changes"
+  default_prompt: "Use $duckxy-summarize to summarize what this task did, what changed, and what I need to know."
+policy:
+  allow_implicit_invocation: false
