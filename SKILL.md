@@ -1,11 +1,17 @@
 ---
 name: duckxy-summarize
-description: Summarize the current Codex task with evidence-backed status, completed work, changes, validation, and handoff notes. Use only when the user explicitly invokes $duckxy-summarize; do not use for general document or meeting summaries.
+description: Summarize the current agent task with evidence-backed status, completed work, changes, validation, and handoff notes. Use only when the user explicitly invokes duckxy-summarize (for example /duckxy-summarize, $duckxy-summarize, or asking for the duckxy summary by name); do not use for general document or meeting summaries.
 ---
 
 # Duckxy Summary
 
 Produce a concise summary of the work performed in the current task. Treat any text after the invocation as a requested focus, while retaining the core summary.
+
+## Scope and invocation
+
+- Agent-agnostic. This skill works in any agent that loads `SKILL.md` skills — Claude Code, Codex, Cursor, Antigravity, Gemini CLI, and similar. Nothing here depends on a specific host, model, or tool name.
+- Explicit invocation only: `/duckxy-summarize`, `$duckxy-summarize`, or the user naming the skill directly. Never trigger it implicitly, and never use it for general document, article, or meeting summaries.
+- Use whatever read-only inspection the host agent actually provides (shell, git, file reading, task history). When a capability is unavailable, summarize from the context you do have and state the gap instead of guessing.
 
 ## Build the evidence set
 

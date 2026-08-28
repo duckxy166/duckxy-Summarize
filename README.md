@@ -1,6 +1,8 @@
 # Duckxy Summarize
 
-Codex skill สำหรับสรุปงานใน task ปัจจุบันแบบอิงหลักฐาน ว่ากำลังแก้ปัญหาอะไร ทำอะไรไปแล้ว มีอะไรเปลี่ยน และมีเรื่องใดที่ต้องรู้ก่อนทำงานต่อ
+Skill สำหรับสรุปงานใน task ปัจจุบันแบบอิงหลักฐาน ว่ากำลังแก้ปัญหาอะไร ทำอะไรไปแล้ว มีอะไรเปลี่ยน และมีเรื่องใดที่ต้องรู้ก่อนทำงานต่อ
+
+ใช้ได้กับทุก agent ที่อ่านสกิลรูปแบบ `SKILL.md` — Claude Code, Codex, Cursor, Antigravity, Gemini CLI และอื่น ๆ โดยไม่ผูกกับ host, model หรือชื่อ tool ใดเป็นการเฉพาะ
 
 ## ทำอะไรได้บ้าง
 
@@ -13,16 +15,17 @@ Codex skill สำหรับสรุปงานใน task ปัจจุ�
 
 ## วิธีใช้
 
-สกิลนี้เป็น explicit-only จึงต้องเรียกด้วยชื่อโดยตรง:
+สกิลนี้เป็น explicit-only จึงต้องเรียกด้วยชื่อโดยตรง รูปแบบการเรียกขึ้นกับ agent ที่ใช้:
 
 ```text
-$duckxy-summarize
+/duckxy-summarize     # Claude Code, Cursor, Antigravity
+$duckxy-summarize     # Codex
 ```
 
 ระบุจุดเน้นเพิ่มเติมได้ เช่น:
 
 ```text
-$duckxy-summarize เน้นผลกระทบต่อ API
+/duckxy-summarize เน้นผลกระทบต่อ API
 ```
 
 ## แหล่งข้อมูลที่ใช้
@@ -48,10 +51,33 @@ $duckxy-summarize เน้นผลกระทบต่อ API
 
 ## ติดตั้ง
 
-วางหรือ clone repository นี้ไว้ในโฟลเดอร์ skills ของ Codex:
+clone repository นี้ลงในโฟลเดอร์ skills ของ agent ที่ต้องการใช้:
+
+| Agent | โฟลเดอร์ skills |
+|---|---|
+| Claude Code | `~/.claude/skills/duckxy-summarize` |
+| Codex | `~/.codex/skills/duckxy-summarize` |
+| Cursor | `~/.cursor/skills/duckxy-summarize` |
+| Antigravity | `~/.gemini/antigravity/skills/duckxy-summarize` |
+| Gemini CLI | `~/.gemini/skills/duckxy-summarize` |
 
 ```bash
-git clone https://github.com/duckxy166/duckxy-summarize.git ~/.codex/skills/duckxy-summarize
+git clone https://github.com/duckxy166/duckxy-summarize.git ~/.claude/skills/duckxy-summarize
 ```
 
-จากนั้นเปิด task ใหม่ใน Codex แล้วเรียกใช้ `$duckxy-summarize`
+### ใช้ร่วมกันหลาย agent (แนะนำ)
+
+clone ไว้ที่เดียวแล้วทำ link ไปยังโฟลเดอร์ skills ของแต่ละ agent — pull ครั้งเดียวได้ครบทุกตัว
+
+```bash
+git clone https://github.com/duckxy166/duckxy-summarize.git ~/.agents/repos/duckxy-summarize
+ln -s ~/.agents/repos/duckxy-summarize ~/.claude/skills/duckxy-summarize   # macOS / Linux
+```
+
+Windows (PowerShell, ไม่ต้องใช้สิทธิ์ admin):
+
+```powershell
+New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\duckxy-summarize" -Target "$env:USERPROFILE\.agents\repos\duckxy-summarize"
+```
+
+จากนั้นเปิด task ใหม่ใน agent แล้วเรียกใช้สกิลตามรูปแบบของ agent นั้น
